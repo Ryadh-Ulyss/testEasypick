@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Test Easypicky{% endblock %}
+
+{% block body %}
+    <h1 class="text-center my-5">Bienvenue</h1>
+
+    {% block content %}
+        <div class="row">
+            <div class="justify-content-center d-flex">
+                <a href="{{path('register_user')}}"><button class="mx-auto"> Créer un utilisateur</button></a>
+                <a href="{{path('register_company')}}"><button class="mx-auto">Créer une entreprise</button></a>
+            </div>
+        </div>
+
+
+            <h2>Liste des utilisateurs</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Email</th>
+                    <th>Roles</th>
+                    <th>Mot de passe</th>
+                    <th>Prénom</th>
+                    <th>Nom</th>
+                    <th>Créé le</th>
+                    <th>Mis à jour le</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                    <td>{{ user.password }}</td>
+                    <td>{{ user.firstname }}</td>
+                    <td>{{ user.lastname }}</td>
+                    <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ user.updatedAt ? user.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>
+                        <a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
+                        <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="9">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+
+        <h1>Company index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Siren</th>
+                <th>ActivityArea</th>
+                <th>Adress</th>
+                <th>Zipcode</th>
+                <th>City</th>
+                <th>Country</th>
+                <th>EmployeesNumb</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for company in companies %}
+            <tr>
+                <td>{{ company.id }}</td>
+                <td>{{ company.name }}</td>
+                <td>{{ company.siren }}</td>
+                <td>{{ company.activityArea }}</td>
+                <td>{{ company.adress }}</td>
+                <td>{{ company.zipcode }}</td>
+                <td>{{ company.city }}</td>
+                <td>{{ company.country }}</td>
+                <td>{{ company.employeesNumb }}</td>
+                <td>
+                    <a href="{{ path('app_companies_crud_show', {'id': company.id}) }}">show</a>
+                    <a href="{{ path('app_companies_crud_edit', {'id': company.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endblock %}
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}INSCRIPTION{% endblock %}
+
+{% block body %}
+    <h1 class="text-center mt-4 mb-5">INSCRIRE {% if app.request.get('_route') == 'register_user' %} UN UTILISATEUR {% else %} UNE ENTREPRISE {% endif %}</h1>
+    <div class="col-4 offset-4">
+        {{ form(form) }}
+    </div>
+{% endblock %}
